@@ -27,7 +27,7 @@ try:
     cleaned_stats = df[['altitude_m', 'battery_voltage', 'latitude', 'longitude']].describe()
     print(cleaned_stats)
 
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 18))
+    fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, figsize=(12, 18))
     fig.suptitle('Drone Flight Log Analysis', fontsize=16)
 
     ax1.plot(raw_df['timestamp'], altitude_raw, 'r--', label='Raw Altitude', alpha=0.5)
@@ -49,6 +49,13 @@ try:
     ax3.set_title('2D Flight Path by Flight Mode')
     ax3.set_xlabel('Longitude')
     ax3.set_ylabel('Latitude')
+
+    ax4.plot(df['timestamp'], df['altitude_m'], 'b-', marker='o', markersize=4, label='Cleaned Altitude')
+    ax4.set_title('Altitude over Time')
+    ax4.set_xlabel('Timestamp')
+    ax4.set_ylabel('Altitude (m)')
+    ax4.legend()
+    ax4.grid(True)
     
     modes = df['flight_mode'].unique()
     colors = plt.cm.jet(np.linspace(0, 1, len(modes)))
